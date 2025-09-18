@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+group 'co.com.reto'
+version '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+    }
+    ext{
+        karateVersion='1.4.1'
+        cucumberReportVersion='5.5.3'
+    }
+    dependencies {
+
+        testImplementation "com.intuit.karate:karate-junit5:${karateVersion}"
+        testImplementation "net.masterthought:cucumber-reporting:${cucumberReportVersion}"
+        implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+        testImplementation 'junit:junit:4.13.2'
+    }
+
+    test {
+        useJUnitPlatform()
+        systemProperty "karate.options", System.properties.getProperty("karate.options")
+        systemProperty "karate.env", System.properties.getProperty("karate.env")
+        outputs.upToDateWhen { false }
+    }
+
+tasks.withType(Test).configureEach {
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+        showStandardStreams true
+    }
+}

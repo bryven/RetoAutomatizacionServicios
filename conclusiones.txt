@@ -1,0 +1,27 @@
+CONCLUSIONES DEL EJERCICIO PETSTORE - KARATE
+
+1. Cobertura de Casos:
+   - Se implementaron los 4 escenarios solicitados: agregar mascota, consultar por ID, actualizar y consultar por estatus.
+   - Cada caso se ejecuta de forma independiente con datos dinámicos (ID, nombre, categoría) generados en tiempo de ejecución.
+
+2. Buenas Prácticas Aplicadas:
+   - Uso de un payload base (addPet.json) clonado en cada escenario para mantener consistencia.
+   - Separación de responsabilidades: generación de datos aleatorios en clases Java auxiliares (GetName, SimpleIdGenerator).
+   - Configuración de logs con logback-test.xml para depuración más clara.
+   - Configuración de testLogging en Gradle para mostrar detalles de pruebas en consola.
+
+3. Retos Encontrados:
+   - El ambiente público de Petstore es inestable: a veces no persiste registros o tarda en reflejar actualizaciones.
+   - Se implementaron reintentos (retry) en los escenarios de actualización y búsqueda por estatus para mitigar estos problemas.
+
+4. Reportes:
+   - Karate genera reportes HTML en build/karate-reports.
+   - El runner TestParallel genera reportes de Cucumber (Masterthought) en target/cucumber-html-reports.
+
+5. Limitaciones:
+   - Al depender de un sandbox público, los resultados pueden variar entre ejecuciones.
+   - No se configuraron múltiples ambientes (solo URL pública), pero la estructura permite escalar fácilmente en el futuro.
+
+6. Conclusión General:
+   - La solución cumple con los requerimientos planteados, es reproducible vía Gradle y extensible a nuevos casos.
+   - Se aplicaron buenas prácticas de automatización, manejo de datos dinámicos y reportes, dejando la base lista para integrar en pipelines CI/CD.
